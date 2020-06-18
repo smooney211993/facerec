@@ -39,20 +39,43 @@ class App extends React.Component {
     super(props)
     this.state ={
       inputBar: '',
-      imageUrl: ''
+      imageUrl: 'https://samples.clarifai.com/face-det.jpg',
+      box: {}
     }
     this.api = this.api.bind(this)
-    this.handleInput = this.handleInput.bind(this)
+    this.handleInput = this.handleInput.bind(this);
   }
   handleInput(input){
     this.setState({inputBar: input})
   }
+  
+  calculateFaceLocation (data){
+    console.log(data)
+  }
+
+  
+
   async api () {
-    this.setState({imageUrl: this.state.inputBar})
+    this.setState({imageUrl: this.state.inputBar});
+    let boxData = {}
+    
    try {
-    const response = await app.models.predict(Clarifai.COLOR_MODEL, "https://samples.clarifai.com/face-det.jpg")
+    const response = await app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.inputBar)
     if(response.status.description === 'Ok'){
-      console.log(response)
+     boxData = response.outputs[0].data.regions.map((box)=>{
+      const {left_col, top_row , right_col, bottom_row} = box.region_info.bounding_box;
+      const image = document.getElementById('imageinput');
+      const width = Number(image.width);
+      const height = Number(image.height);
+      return {
+        leftCol: left_col * width,
+        topRow: top_row * height,
+        rightCol: width - (right_col * width),
+        bottomRow: height - (bottom_row * height)
+      }
+    })
+     this.setState({box:boxData})
+  
     } else {
       throw new Error('shit didnt do shit')
     }
@@ -62,10 +85,9 @@ class App extends React.Component {
      console.log(error)
      
    }
+
    
-    
-   
-  }
+ }
   render(){
     return (
       <div className='App'>
@@ -74,7 +96,7 @@ class App extends React.Component {
         <Logo/>
         <Rank/>
         <ImageLinkForm onInputChange = {this.handleInput} onClick={this.api} />
-        <Facerec/>
+        <Facerec imageUrl ={this.state.imageUrl}/>
       </div>
     )
   }

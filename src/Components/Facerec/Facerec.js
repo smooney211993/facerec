@@ -3,8 +3,10 @@ import React from 'react';
 const Facerec =(props)=>{
     const {imageUrl} = props
     return(
-        <div>
-            {imageUrl}
+        <div className='center'>
+            <div>
+                <img id='imageinput' alt='detecting' src={imageUrl} witdh='500px' height='auto'/>
+            </div>
         </div>
     )
 };
