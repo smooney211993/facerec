@@ -7,6 +7,7 @@ import Clarifai from 'clarifai'
 import Rank from './Components/Rank/Rank';
 import Particles from 'react-particles-js';
 import Facerec from './Components/Facerec/Facerec'
+import faceDetectApi from './Components/Api/Api';
 import './App.css';
 
 const particleOptions = {
@@ -22,9 +23,9 @@ const particleOptions = {
 }
 
 
-const app = new Clarifai.App({
-  apiKey: 'e0357803b22f409dbb059d51ca2675b1'
- });
+  const app = new Clarifai.App({
+    apiKey: 'e0357803b22f409dbb059d51ca2675b1'
+  });
 
 
 
@@ -40,9 +41,9 @@ class App extends React.Component {
     this.state ={
       inputBar: '',
       imageUrl: 'https://samples.clarifai.com/face-det.jpg',
-      box: {}
+      box: []
     }
-    this.api = this.api.bind(this)
+    this.apiSetFace = this.apiSetFace.bind(this)
     this.handleInput = this.handleInput.bind(this);
   }
   handleInput(input){
@@ -55,39 +56,15 @@ class App extends React.Component {
 
   
 
-  async api () {
+  async apiSetFace () {
     this.setState({imageUrl: this.state.inputBar});
-    let boxData = {}
-    
-   try {
-    const response = await app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.inputBar)
-    if(response.status.description === 'Ok'){
-     boxData = response.outputs[0].data.regions.map((box)=>{
-      const {left_col, top_row , right_col, bottom_row} = box.region_info.bounding_box;
-      const image = document.getElementById('imageinput');
-      const width = Number(image.width);
-      const height = Number(image.height);
-      return {
-        leftCol: left_col * width,
-        topRow: top_row * height,
-        rightCol: width - (right_col * width),
-        bottomRow: height - (bottom_row * height)
-      }
-    })
-     this.setState({box:boxData})
-  
-    } else {
-      throw new Error('shit didnt do shit')
-    }
-    
-     
-   } catch (error) {
-     console.log(error)
-     
-   }
+    const boxData = await faceDetectApi(this.state.imageUrl);
+    this.setState({box:boxData})
+    const boxData2 = await faceDetectApi(this.state.imageUrl)
+    this.setState({box: boxData2})
 
-   
- }
+
+  }
   render(){
     return (
       <div className='App'>
@@ -95,8 +72,8 @@ class App extends React.Component {
         <Particles params={particleOptions} className='particles'/>
         <Logo/>
         <Rank/>
-        <ImageLinkForm onInputChange = {this.handleInput} onClick={this.api} />
-        <Facerec imageUrl ={this.state.imageUrl}/>
+        <ImageLinkForm onInputChange = {this.handleInput} onClick={this.apiSetFace} />
+        <Facerec imageUrl ={this.state.imageUrl} box={this.state.box}/>
       </div>
     )
   }
