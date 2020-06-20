@@ -39,7 +39,7 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state ={
-      inputBar: '',
+      inputBar: 'https://samples.clarifai.com/face-det.jpg',
       imageUrl: 'https://samples.clarifai.com/face-det.jpg',
       box: []
     }
@@ -59,7 +59,6 @@ class App extends React.Component {
   async apiSetFace () {
     this.setState({imageUrl: this.state.inputBar});
     const boxData = await faceDetectApi(this.state.imageUrl);
-    this.setState({box:boxData})
     const boxData2 = await faceDetectApi(this.state.imageUrl)
     this.setState({box: boxData2})
 
@@ -72,7 +71,7 @@ class App extends React.Component {
         <Particles params={particleOptions} className='particles'/>
         <Logo/>
         <Rank/>
-        <ImageLinkForm onInputChange = {this.handleInput} onClick={this.apiSetFace} />
+        <ImageLinkForm onInputChange = {this.handleInput} onClick={this.apiSetFace} imageUrl ={this.state.imageUrl} />
         <Facerec imageUrl ={this.state.imageUrl} box={this.state.box}/>
       </div>
     )

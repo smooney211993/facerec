@@ -15,7 +15,7 @@ const Facerec =(props)=>{
     return(
         <div className='center'>
             <div className='absolute mt2'>
-                <img id='imageinput' alt='detecting' src={imageUrl} witdh='500px' height='auto'/>
+                <img id='imageinput' alt='detecting' src={imageUrl} witdh='400px' height='auto'/>
                 {render()}
             </div>
         </div>

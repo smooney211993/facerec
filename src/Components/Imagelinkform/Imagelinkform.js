@@ -3,7 +3,7 @@ import './Imagelinkform.css'
 
 
 const ImageLinkForm = (props)=>{
-    const {onInputChange} = props
+    const {onInputChange, imageUrl} = props
     const handleInput =(event)=>{
         onInputChange(event.target.value)
     }
@@ -12,8 +12,8 @@ const ImageLinkForm = (props)=>{
             <p className='f3'>This will detect faces in images!</p>
             <div className='center'>
                 <div className='form center pa4 br3 shadow-5'>
-                    <input className='f4 pa2 w-70 center ' type='text' onChange ={handleInput}  />
-                    <button  className='w-30 grow f4 link ph3 pv2 dib white bg-light-purple' onClick={()=>{
+                    <input className='f4 pa2 w-70 center ' defaultValue={imageUrl} type='text' onChange ={handleInput}  />
+                    <button  className='w-40 grow f4 link ph3 pv2 dib white bg-light-purple' onClick={()=>{
                         props.onClick()
                         
                     }}>Detect</button >
