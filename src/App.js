@@ -8,6 +8,7 @@ import Rank from './Components/Rank/Rank';
 import Particles from 'react-particles-js';
 import Facerec from './Components/Facerec/Facerec'
 import faceDetectApi from './Components/Api/Api';
+import Signin from './Components/Signin/Signin';
 import './App.css';
 
 const particleOptions = {
@@ -58,9 +59,9 @@ class App extends React.Component {
 
   async apiSetFace () {
     this.setState({imageUrl: this.state.inputBar});
-    const boxData = await faceDetectApi(this.state.imageUrl);
-    const boxData2 = await faceDetectApi(this.state.imageUrl)
-    this.setState({box: boxData2})
+    const boxData = await faceDetectApi(this.state.inputBar);
+  
+    this.setState({box: boxData})
 
 
   }
@@ -69,6 +70,7 @@ class App extends React.Component {
       <div className='App'>
         <Navigation/>
         <Particles params={particleOptions} className='particles'/>
+        <Signin/>
         <Logo/>
         <Rank/>
         <ImageLinkForm onInputChange = {this.handleInput} onClick={this.apiSetFace} imageUrl ={this.state.imageUrl} />

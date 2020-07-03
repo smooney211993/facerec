@@ -5,8 +5,10 @@ const app = new Clarifai.App({
 const faceDetectApi = async (input) =>{
 
     try {
-    const response = await app.models.predict(Clarifai.FACE_DETECT_MODEL, input)
+    const response = await app.models.predict("c0c0ac362b03416da06ab3fa36fb58e3", input)
     if(response.status.description === 'Ok'){
+      console.log(response)
+      console.log(response.outputs[0].id)
      return response.outputs[0].data.regions.map((box)=>{
       const {left_col, top_row , right_col, bottom_row} = box.region_info.bounding_box;
       const image = document.getElementById('imageinput');
