@@ -42,10 +42,12 @@ class App extends React.Component {
     this.state ={
       inputBar: 'https://samples.clarifai.com/face-det.jpg',
       imageUrl: 'https://samples.clarifai.com/face-det.jpg',
-      box: []
+      box: [],
+      route : 'signin'
     }
     this.apiSetFace = this.apiSetFace.bind(this)
     this.handleInput = this.handleInput.bind(this);
+    this.onRouteChange = this.onRouteChange.bind(this);
   }
   handleInput(input){
     this.setState({inputBar: input})
@@ -65,16 +67,24 @@ class App extends React.Component {
 
 
   }
+  onRouteChange (){
+    this.setState({route: 'home'})
+
+  }
   render(){
     return (
       <div className='App'>
         <Navigation/>
-        <Particles params={particleOptions} className='particles'/>
-        <Signin/>
-        <Logo/>
-        <Rank/>
-        <ImageLinkForm onInputChange = {this.handleInput} onClick={this.apiSetFace} imageUrl ={this.state.imageUrl} />
-        <Facerec imageUrl ={this.state.imageUrl} box={this.state.box}/>
+        {this.state.route === 'signin' ? 
+        <Signin onRouteChange={this.onRouteChange}/> 
+        : <div>
+            <Particles params={particleOptions} className='particles'/>
+            <Logo/>
+            <Rank/>
+            <ImageLinkForm onInputChange = {this.handleInput} onClick={this.apiSetFace} imageUrl ={this.state.imageUrl} />
+            <Facerec imageUrl ={this.state.imageUrl} box={this.state.box}/>
+          </div>}
+        
       </div>
     )
   }
