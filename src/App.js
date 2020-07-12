@@ -9,6 +9,7 @@ import Particles from 'react-particles-js';
 import Facerec from './Components/Facerec/Facerec'
 import faceDetectApi from './Components/Api/Api';
 import Signin from './Components/Signin/Signin';
+import Register from './Components/Register/Register';
 import './App.css';
 
 const particleOptions = {
@@ -43,7 +44,8 @@ class App extends React.Component {
       inputBar: 'https://samples.clarifai.com/face-det.jpg',
       imageUrl: 'https://samples.clarifai.com/face-det.jpg',
       box: [],
-      route : 'signin'
+      route : 'signin',
+      isSignedIn: true
     }
     this.apiSetFace = this.apiSetFace.bind(this)
     this.handleInput = this.handleInput.bind(this);
@@ -67,23 +69,46 @@ class App extends React.Component {
 
 
   }
-  onRouteChange (){
-    this.setState({route: 'home'})
+  onRouteChange (route){
+    if(route === 'signout'){
+      this.setState({isSignedIn: false})
+
+    } else if (route === 'home') {
+      this.setState({isSignedIn: true})
+    }
+    this.setState({route: route})
 
   }
+  homePage(){
+    return this.state.route === 'home' 
+    ?  
+      <div>
+          <Logo/>
+          <Rank/>
+          <ImageLinkForm onInputChange = {this.handleInput} 
+          onClick={this.apiSetFace} 
+          imageUrl ={this.state.imageUrl}
+          />
+          <Facerec imageUrl ={this.state.imageUrl} box={this.state.box}/>
+      </div>
+    : (
+        this.state.route === 'signin'
+        ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+        : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+     )
+         
+         
+       
+    
+  }
+
+
   render(){
     return (
       <div className='App'>
-        <Navigation/>
-        {this.state.route === 'signin' ? 
-        <Signin onRouteChange={this.onRouteChange}/> 
-        : <div>
-            <Particles params={particleOptions} className='particles'/>
-            <Logo/>
-            <Rank/>
-            <ImageLinkForm onInputChange = {this.handleInput} onClick={this.apiSetFace} imageUrl ={this.state.imageUrl} />
-            <Facerec imageUrl ={this.state.imageUrl} box={this.state.box}/>
-          </div>}
+        <Particles params={particleOptions} className='particles'/>
+        <Navigation onRouteChange = {this.onRouteChange} isSignedIn = {this.state.isSignedIn}/>
+        {this.homePage()}
         
       </div>
     )
