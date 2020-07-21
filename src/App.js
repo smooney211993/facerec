@@ -1,4 +1,5 @@
-import React from 'react';
+//import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import Navigation from './Components/Navigation/Navigation';
 import Logo from './Components/Logo/Logo';
@@ -36,8 +37,8 @@ const particleOptions = {
 
 
 
-
-class App extends React.Component {
+/*
+ class App extends React.Component {
   constructor(props){
     super(props)
     this.state ={
@@ -115,4 +116,70 @@ class App extends React.Component {
   }
 };
 
-export default App;
+*/
+
+const App2 = () => {
+  const [inputBar, setInutBar] = useState('https://samples.clarifai.com/face-det.jpg');
+  const [imageUrl, setImageUrl] = useState('https://samples.clarifai.com/face-det.jpg');
+  const [box, setBox] = useState([]);
+  const [route, setRoute] = useState('signin');
+  const [isSignedin, setisSignedin] = useState(true);
+  
+  const handleInput = (input) =>{
+    setInutBar(input)
+
+  };
+
+  const apiSetFace =  async () =>{
+    setImageUrl(inputBar);
+    const boxData = await faceDetectApi(inputBar);
+    setBox(boxData);
+
+  }
+
+  const onRouteChange = (routeAdress) =>{
+    if(route === 'signout'){
+      setisSignedin(false)
+
+    } else if (route === 'home') {
+      setisSignedin(true)
+    }
+    setRoute(routeAdress)
+  }
+
+  const homePage = () =>{
+    return route === 'home' 
+    ?  
+      <div>
+          <Logo/>
+          <Rank/>
+          <ImageLinkForm onInputChange = {handleInput} 
+          onClick={apiSetFace} 
+          imageUrl ={imageUrl}
+          />
+          <Facerec imageUrl ={imageUrl} box={box}/>
+      </div>
+    : (
+        route === 'signin'
+        ? <Signin  onRouteChange={onRouteChange}/>
+        : <Register  onRouteChange={onRouteChange}/>
+     )
+         
+         
+
+  }
+
+
+  return (
+      <div className='App'>
+        <Particles params={particleOptions} className='particles'/>
+        <Navigation onRouteChange = {onRouteChange} isSignedIn = {isSignedin}/>
+        {homePage()}
+        
+      </div>
+      
+      )
+
+}
+
+export default App2;
