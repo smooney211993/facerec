@@ -3,10 +3,14 @@ import 'tachyons';
 
 const Signin = (props) => {
     const {onRouteChange} = props;
-    const [signEmail, setSignEmail] = useState('')
-    const handleSignEmail = (event) =>{
-        setSignEmail(event.target.value)
-    }
+    const [signinEmail, setSignEmail] = useState('');
+    const [signinPassword, setSigninPassword] = useState('');
+    const handleSigninEmail = (event) =>{
+        setSignEmail(event.target.value);
+    };
+    const handleSigninPassword = (event) => {
+        setSigninPassword(event.target.value);
+    };
     return (
         <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">
             <main className="pa4 black-80">
@@ -15,15 +19,25 @@ const Signin = (props) => {
                         <legend className="f4 fw6 ph0 mh0">Sign In</legend>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address" onChange={handleSignEmail}/>
+                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                             type="email"
+                             name="email-address"
+                              id="email-address"
+                             onChange={handleSigninEmail}/>
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"/>
+                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                             type="password"
+                              name="password"
+                              id="password"
+                              onChange={handleSigninPassword}/>
                         </div>
                     </fieldset>
                     <div className="">
-                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" onClick={()=>onRouteChange('home')}/>
+                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                         type="submit" value="Sign in"
+                          onClick={()=>onRouteChange('home')}/>
                     </div>
                     <div className="lh-copy mt3">
                         <p onClick={()=>onRouteChange('Register')}className="f6 link dim black db pointer">Register</p>
