@@ -1,8 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 const Register = (props) => {
     const {onRouteChange} = props;
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+
+    const onEmailChange = (event) => {
+        setEmail(event.target.value)
+    }
+    
+    const onPasswordChange = (event) => {
+        setPassword(event.target.value);
+
+    };
+
+    const onNameChange = (event) => {
+        setName(event.target.value);
+    };
+
     return (
         <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">
             <main className="pa4 black-80">
@@ -11,15 +28,27 @@ const Register = (props) => {
                         <legend className="f4 fw6 ph0 mh0">Register</legend>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name"  id="name"/>
+                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                             type="text" 
+                             name="name" 
+                              id="name"
+                              onChange={onNameChange}/>
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address"/>
+                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                             type="email" 
+                             name="email-address" 
+                              id="email-address"
+                              onChange={onEmailChange}/>
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"/>
+                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+                            type="password" 
+                            name="password" 
+                             id="password"
+                             onChange={onPasswordChange}/>
                         </div>
                     </fieldset>
                     <div className="">

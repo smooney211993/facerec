@@ -1,5 +1,5 @@
-//import React from 'react';
-import React, {useState} from 'react';
+import React from 'react';
+//import React, {useState} from 'react';
 import logo from './logo.svg';
 import Navigation from './Components/Navigation/Navigation';
 import Logo from './Components/Logo/Logo';
@@ -37,7 +37,7 @@ const particleOptions = {
 
 
 
-/*
+
  class App extends React.Component {
   constructor(props){
     super(props)
@@ -116,9 +116,9 @@ const particleOptions = {
   }
 };
 
-*/
 
-const App2 = () => {
+
+/*const App2 = () => {
   const [inputBar, setInutBar] = useState('https://samples.clarifai.com/face-det.jpg');
   const [imageUrl, setImageUrl] = useState('https://samples.clarifai.com/face-det.jpg');
   const [box, setBox] = useState([]);
@@ -182,4 +182,6 @@ const App2 = () => {
 
 }
 
-export default App2;
+*/
+
+export default App;
