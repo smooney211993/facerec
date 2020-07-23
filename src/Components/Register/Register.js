@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-
+import api from '../Api/Userform';
 
 const Register = (props) => {
-    const {onRouteChange} = props;
+    const {onRouteChange, loadUser} = props;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    
 
     const onEmailChange = (event) => {
         setEmail(event.target.value)
@@ -19,6 +20,16 @@ const Register = (props) => {
     const onNameChange = (event) => {
         setName(event.target.value);
     };
+    
+    
+
+    const onSubmit = async () =>{
+        const user =  await api.register(email, password);
+        loadUser(user)
+        onRouteChange('home')
+        
+        
+    }
 
     return (
         <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">
@@ -52,7 +63,7 @@ const Register = (props) => {
                         </div>
                     </fieldset>
                     <div className="">
-                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register" onClick={()=>onRouteChange('home')}/>
+                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register" onClick={onSubmit}/>
                     </div>                   
                 </div>
             </main>

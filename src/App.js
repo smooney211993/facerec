@@ -1,5 +1,5 @@
-import React from 'react';
-//import React, {useState} from 'react';
+//import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import Navigation from './Components/Navigation/Navigation';
 import Logo from './Components/Logo/Logo';
@@ -25,7 +25,7 @@ const particleOptions = {
   }
 }
 
-
+/*
   const app = new Clarifai.App({
     apiKey: 'e0357803b22f409dbb059d51ca2675b1'
   });
@@ -94,8 +94,8 @@ const particleOptions = {
       </div>
     : (
         this.state.route === 'signin'
-        ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-        : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+        ? <Signin  onRouteChange={this.onRouteChange}/>
+        : <Register  onRouteChange={this.onRouteChange}/>
      )
          
          
@@ -116,14 +116,16 @@ const particleOptions = {
   }
 };
 
+*/
 
 
-/*const App2 = () => {
+const App2 = () => {
   const [inputBar, setInutBar] = useState('https://samples.clarifai.com/face-det.jpg');
   const [imageUrl, setImageUrl] = useState('https://samples.clarifai.com/face-det.jpg');
   const [box, setBox] = useState([]);
   const [route, setRoute] = useState('signin');
   const [isSignedin, setisSignedin] = useState(true);
+  const [user, setUser] = useState({});
   
   const handleInput = (input) =>{
     setInutBar(input)
@@ -146,6 +148,15 @@ const particleOptions = {
     }
     setRoute(routeAdress)
   }
+  const loadUser = (data) =>{
+    setUser({
+        id: data.id,
+        name: data.name,
+        email : data.email,
+        entries: data.entries,
+        joined: data.joined
+      })
+  }
 
   const homePage = () =>{
     return route === 'home' 
@@ -161,8 +172,8 @@ const particleOptions = {
       </div>
     : (
         route === 'signin'
-        ? <Signin  onRouteChange={onRouteChange}/>
-        : <Register  onRouteChange={onRouteChange}/>
+        ? <Signin  onRouteChange={onRouteChange} loadUser={loadUser}/>
+        : <Register  onRouteChange={onRouteChange} loadUser={loadUser}/>
      )
          
          
@@ -182,6 +193,6 @@ const particleOptions = {
 
 }
 
-*/
 
-export default App;
+
+export default App2;

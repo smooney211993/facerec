@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import 'tachyons';
+import api from '../Api/Userform';
 
 const Signin = (props) => {
-    const {onRouteChange} = props;
-    const [signinEmail, setSignEmail] = useState('');
-    const [signinPassword, setSigninPassword] = useState('');
+    const {onRouteChange, loadUser} = props;
+    const [email, setSignEmail] = useState('');
+    const [password, setSigninPassword] = useState('');
     const handleSigninEmail = (event) =>{
         setSignEmail(event.target.value);
     };
@@ -13,28 +14,16 @@ const Signin = (props) => {
     };
 
     const onSubmitSignin = async ()  => {
-       try{
-           const response = await fetch('http://localhost:4001/signin',{
-               method: 'post',
-               headers: {'Content-type' : 'application/json'},
-               body: JSON.stringify({
-                   email: signinEmail,
-                   password: signinPassword 
-               })
-           })
-           if(response.ok) {
-               const jsonResponse = response.json();
-               console.log(jsonResponse)
-               onRouteChange('home')
-           } else {
-               throw new Error('didnt work')
-           }
-
-       } catch(error) {
-           console.log(error)
-       }
-
+        const user = await api.signIn(email,password);
+        if(user.id){
+            loadUser(user);
+            onRouteChange('home')
+        }
     }
+       
+        
+
+    
     return (
         <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">
             <main className="pa4 black-80">
