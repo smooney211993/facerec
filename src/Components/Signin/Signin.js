@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import 'tachyons';
-import api from '../Api/Userform';
+import api from '../Api/Api';
 
 const Signin = (props) => {
     const {onRouteChange, loadUser} = props;
@@ -15,10 +15,11 @@ const Signin = (props) => {
 
     const onSubmitSignin = async ()  => {
         const user = await api.signIn(email,password);
-        if(user.id){
-            loadUser(user);
-            onRouteChange('home')
+        if(!user){
+            return
         }
+        loadUser(user);
+        onRouteChange('home')
     }
        
         

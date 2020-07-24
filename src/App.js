@@ -8,7 +8,7 @@ import Clarifai from 'clarifai'
 import Rank from './Components/Rank/Rank';
 import Particles from 'react-particles-js';
 import Facerec from './Components/Facerec/Facerec'
-import faceDetectApi from './Components/Api/Api';
+import api from './Components/Api/Api';
 import Signin from './Components/Signin/Signin';
 import Register from './Components/Register/Register';
 import './App.css';
@@ -64,7 +64,7 @@ const particleOptions = {
 
   async apiSetFace () {
     this.setState({imageUrl: this.state.inputBar});
-    const boxData = await faceDetectApi(this.state.inputBar);
+    const boxData = await api.faceDetectApi(this.state.inputBar);
   
     this.setState({box: boxData})
 
@@ -125,7 +125,14 @@ const App2 = () => {
   const [box, setBox] = useState([]);
   const [route, setRoute] = useState('signin');
   const [isSignedin, setisSignedin] = useState(true);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    id: '',
+    name: '',
+    email: '',
+    entries: '',
+    joined: '',
+  });
+ 
   
   const handleInput = (input) =>{
     setInutBar(input)
@@ -134,8 +141,21 @@ const App2 = () => {
 
   const apiSetFace =  async () =>{
     setImageUrl(inputBar);
-    const boxData = await faceDetectApi(inputBar);
-    setBox(boxData);
+    try {
+      const boxData = await api.faceDetectApi(inputBar);
+      if(boxData){
+        setBox(boxData);
+        const imageCount = await api.imageCount(user.id);
+        setUser({...user,entries: imageCount})
+
+
+      }
+      
+
+    } catch (error){
+      console.log(error)
+    }
+    
 
   }
 
@@ -156,6 +176,7 @@ const App2 = () => {
         entries: data.entries,
         joined: data.joined
       })
+     
   }
 
   const homePage = () =>{
@@ -163,7 +184,7 @@ const App2 = () => {
     ?  
       <div>
           <Logo/>
-          <Rank/>
+          <Rank imageCount ={user.entries}/>
           <ImageLinkForm onInputChange = {handleInput} 
           onClick={apiSetFace} 
           imageUrl ={imageUrl}

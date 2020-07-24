@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import api from '../Api/Userform';
+import api from '../Api/Api';
 
 const Register = (props) => {
     const {onRouteChange, loadUser} = props;
@@ -24,7 +24,7 @@ const Register = (props) => {
     
 
     const onSubmit = async () =>{
-        const user =  await api.register(email, password);
+        const user =  await api.register(name, email, password,);
         loadUser(user)
         onRouteChange('home')
         
