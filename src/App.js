@@ -124,7 +124,7 @@ const App2 = () => {
   const [imageUrl, setImageUrl] = useState('https://samples.clarifai.com/face-det.jpg');
   const [box, setBox] = useState([]);
   const [route, setRoute] = useState('signin');
-  const [isSignedin, setisSignedin] = useState(true);
+  const [isSignedin, setSignedIn] = useState(false);
   const [user, setUser] = useState({
     id: '',
     name: '',
@@ -132,7 +132,7 @@ const App2 = () => {
     entries: '',
     joined: '',
   });
- 
+  
   
   const handleInput = (input) =>{
     setInutBar(input)
@@ -141,33 +141,42 @@ const App2 = () => {
 
   const apiSetFace =  async () =>{
     setImageUrl(inputBar);
-    try {
-      const boxData = await api.faceDetectApi(inputBar);
-      if(boxData){
-        setBox(boxData);
-        const imageCount = await api.imageCount(user.id);
-        setUser({...user,entries: imageCount})
-
-
-      }
-      
-
-    } catch (error){
-      console.log(error)
-    }
+    
+      //const boxData = await api.faceDetectApi(inputBar);
+      //setBox(boxData);
+      //const imageCount = await api.imageCount(user.id, box.length);
+      //setUser({...user,entries: imageCount})
+    api.faceDetectApi(inputBar).then(response=>{
+      setBox(response)
+      api.imageCount(user.id, response.length).then(response=> setUser({...user,entries: response}))
+    })
+    
+   
     
 
   }
 
+  
+  
+  
   const onRouteChange = (routeAdress) =>{
-    if(route === 'signout'){
-      setisSignedin(false)
-
-    } else if (route === 'home') {
-      setisSignedin(true)
-    }
     setRoute(routeAdress)
+    if(routeAdress === 'signout'){
+      setSignedIn(false)
+      setUser({
+          id: '',
+          name: '',
+          email: '',
+          entries: '',
+          joined: '', 
+      })
+     
+
+    } else if (routeAdress === 'home') {
+      setSignedIn(true)
+    }
   }
+    
   const loadUser = (data) =>{
     setUser({
         id: data.id,
@@ -193,7 +202,7 @@ const App2 = () => {
       </div>
     : (
         route === 'signin'
-        ? <Signin  onRouteChange={onRouteChange} loadUser={loadUser}/>
+        ? <Signin  onRouteChange={onRouteChange} loadUser={loadUser} />
         : <Register  onRouteChange={onRouteChange} loadUser={loadUser}/>
      )
          
@@ -205,7 +214,7 @@ const App2 = () => {
   return (
       <div className='App'>
         <Particles params={particleOptions} className='particles'/>
-        <Navigation onRouteChange = {onRouteChange} isSignedIn = {isSignedin}/>
+        <Navigation onRouteChange = {onRouteChange}  isSignedin ={isSignedin} route ={route} />
         {homePage()}
         
       </div>

@@ -38,13 +38,14 @@ const api = {
 
     },
 
-    async imageCount(id){
+    async imageCount(id, number){
         try {
           const response = await fetch('http://localhost:4001/image', {
             method: 'put',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({
                 id: id,
+                count : number
                 
 
 
