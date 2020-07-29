@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is an application that uses the clarify API to detect faces in image url. The user will be able to create account with sign in and out functionality. It allows the user to paste in an image url which the application will then return boxes around the faces that it has detected. The application will store the accumlation of faces detected.
+
 
 ## Available Scripts
 
