@@ -147,7 +147,7 @@ const App2 = () => {
       //const imageCount = await api.imageCount(user.id, box.length);
       //setUser({...user,entries: imageCount})
     api.faceDetectApi(inputBar).then(response=>{
-      setBox(response)
+      setBox(response) // sets the dimensions of the boxes around the detected faces
       api.imageCount(user.id, response.length).then(response=> setUser({...user,entries: response}))
     })
     
@@ -174,9 +174,10 @@ const App2 = () => {
 
     } else if (routeAdress === 'home') {
       setSignedIn(true)
+      
     }
   }
-    
+    // changes the route adress once signed in
   const loadUser = (data) =>{
     setUser({
         id: data.id,
@@ -207,8 +208,10 @@ const App2 = () => {
      )
          
          
-
+// this renders whats on the homepage on the condition if the user has signed in or not
   }
+
+
 
 
   return (
