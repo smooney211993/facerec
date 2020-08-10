@@ -27,7 +27,7 @@ const api = {
             
           
             } else {
-              throw new Error('shit didnt do shit')
+              throw new Error('error')
             }
             
              
