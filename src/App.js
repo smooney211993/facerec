@@ -194,7 +194,7 @@ const App2 = () => {
     ?  
       <div>
           <Logo/>
-          <Rank imageCount ={user.entries}/>
+          <Rank imageCount ={user.entries} user={user}/>
           <ImageLinkForm onInputChange = {handleInput} 
           onClick={apiSetFace} 
           imageUrl ={imageUrl}
