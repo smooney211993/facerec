@@ -1,10 +1,8 @@
 //import React from 'react';
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import Navigation from './Components/Navigation/Navigation';
 import Logo from './Components/Logo/Logo';
 import ImageLinkForm from './Components/Imagelinkform/Imagelinkform'
-import Clarifai from 'clarifai'
 import Rank from './Components/Rank/Rank';
 import Particles from 'react-particles-js';
 import Facerec from './Components/Facerec/Facerec'
@@ -146,11 +144,33 @@ const App2 = () => {
       //setBox(boxData);
       //const imageCount = await api.imageCount(user.id, box.length);
       //setUser({...user,entries: imageCount})
-    api.faceDetectApi(inputBar).then(response=>{
+   /* api.faceDetectApi(inputBar).then(response=>{
       setBox(response) // sets the dimensions of the boxes around the detected faces
-      api.imageCount(user.id, response.length).then(response=> setUser({...user,entries: response}))
+      if(response.length){
+        api.imageCount(user.id, response.length).then(response=> setUser({...user,entries: response}))
+
+      } else {
+        throw 
+        
+      }
+      
     })
-    
+    */
+    try{
+      const response = await api.faceDetectApi(inputBar);
+      if(response){
+        setBox(response)
+        const boxes = response.length
+        const data = await api.imageCount(user.id, boxes)
+        setUser({...user,entries: data})
+      } else {
+        throw new Error('bad request')
+      }
+   } catch(error) {
+      console.log('can not detect with poor image quality')
+
+
+   }
    
     
 

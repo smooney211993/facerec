@@ -8,8 +8,7 @@ const api = {
         try {
             const response = await app.models.predict("c0c0ac362b03416da06ab3fa36fb58e3", input)
             if(response.status.description === 'Ok'){
-              console.log(response)
-              console.log(response.outputs[0].id)
+                console.log(response)
              const boxArray = response.outputs[0].data.regions.map((box)=>{
               const {left_col, top_row , right_col, bottom_row} = box.region_info.bounding_box;
               const image = document.getElementById('imageinput');
@@ -54,17 +53,12 @@ const api = {
 
         if(response.ok){
           const data = response.json()
-          console.log(`image data is ${data}`)
           return data
-
-         
         }
 
         } catch(error) {
           console.log(error)
         }
-
-
     },
     
     
@@ -78,21 +72,18 @@ const api = {
                     email: email,
                     password: password 
                 })
-            })
+             })
             if(response.ok) {
                 const user = response.json();
                 console.log(user)
-                
                 return user
-                
-            } else {
-                throw new Error('didnt work')
+                 } else {
+                throw new Error('Error registering')
             }
     
         } catch(error) {
             console.log(error)
         }
-
     },
 
    
@@ -112,10 +103,8 @@ const api = {
                 const user = response.json();
                 console.log(user)
                 return user
-                
-                
-            } else {
-                throw new Error('didnt work')
+                } else {
+                throw new Error('Error signing in.Please be sure that credentials are correct!')
             }
  
         } catch(error) {

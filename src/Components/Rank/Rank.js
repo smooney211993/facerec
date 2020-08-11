@@ -1,5 +1,5 @@
 import React from 'react'
-import ImageLinkForm from '../Imagelinkform/Imagelinkform';
+
 
 const Rank = (props) =>{
     const {imageCount, user} = props;

@@ -3,7 +3,7 @@ import './Imagelinkform.css'
 
 
 const ImageLinkForm = (props)=>{
-    const {onInputChange, imageUrl} = props
+    const {onInputChange, imageUrl, onClick} = props
     const handleInput =(event)=>{
         onInputChange(event.target.value)
     }
@@ -13,10 +13,7 @@ const ImageLinkForm = (props)=>{
             <div className='center'>
                 <div className='form center pa4 br3 shadow-5 image-container' >
                     <input className='f4 pa2 w-70 center  ' defaultValue={imageUrl} type='text' onChange ={handleInput}  />
-                    <button  className='w-40 grow f4 link ph3 pv2 dib white bg-light-purple' onClick={()=>{
-                        props.onClick()
-                        
-                    }}>Detect</button >
+                    <button  className='w-40 grow f4 link ph3 pv2 dib white bg-light-purple' onClick={onClick}>Detect</button >
                 </div>
             </div>
         </div>
