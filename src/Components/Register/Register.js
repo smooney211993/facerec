@@ -26,7 +26,7 @@ const Register = (props) => {
     const onSubmit = async () =>{
         const user =  await api.register(name, email, password,);
         if(!user){
-            document.getElementById("register").innerText = 'User already exists'
+            document.getElementById("register").innerText = 'User already exists/Incorrect Formatting'
             return
              
         }

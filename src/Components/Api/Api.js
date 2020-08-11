@@ -1,19 +1,26 @@
-import Clarifai from 'clarifai';
-const app = new Clarifai.App({
-    apiKey: 'e0357803b22f409dbb059d51ca2675b1'
-   });
+//import Clarifai from 'clarifai';
+/*const app = new Clarifai.App({
+    apiKey: ''
+   }); */
 const api = {
 
     async faceDetectApi (input) {
         try {
-            const response = await app.models.predict("c0c0ac362b03416da06ab3fa36fb58e3", input)
-            if(response.status.description === 'Ok'){
-                console.log(response)
-             const boxArray = response.outputs[0].data.regions.map((box)=>{
-              const {left_col, top_row , right_col, bottom_row} = box.region_info.bounding_box;
-              const image = document.getElementById('imageinput');
-              const width = Number(image.width);
-              const height = Number(image.height);
+            //const response = await app.models.predict("c0c0ac362b03416da06ab3fa36fb58e3", input)
+            const response = await fetch('http://localhost:4001/imageurl',{
+                method: 'post',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify({
+                    input: input
+                })
+            }) 
+            if(response.ok){
+             const jsonResponse = await response.json();
+             const boxArray = jsonResponse.outputs[0].data.regions.map((box)=>{
+             const {left_col, top_row , right_col, bottom_row} = box.region_info.bounding_box;
+             const image = document.getElementById('imageinput');
+             const width = Number(image.width);
+             const height = Number(image.height);
               return {
                 leftCol: left_col * width,
                 topRow: top_row * height,
