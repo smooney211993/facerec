@@ -7,7 +7,7 @@ const api = {
     async faceDetectApi (input) {
         try {
             //const response = await app.models.predict("c0c0ac362b03416da06ab3fa36fb58e3", input)
-            const response = await fetch('http://localhost:4001/imageurl',{
+            const response = await fetch('https://calm-peak-57485.herokuapp.com/imageurl',{
                 method: 'post',
                 headers: {'Content-Type' : 'application/json'},
                 body: JSON.stringify({
@@ -46,7 +46,7 @@ const api = {
 
     async imageCount(id, number){
         try {
-          const response = await fetch('http://localhost:4001/image', {
+          const response = await fetch('https://calm-peak-57485.herokuapp.com/image', {
             method: 'put',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({
@@ -71,7 +71,7 @@ const api = {
     
     async register (name, email, password) {
         try{
-            const response = await fetch(`http://localhost:4001/register`,{
+            const response = await fetch(`https://calm-peak-57485.herokuapp.com/register`,{
                 method: 'post',
                 headers: {'Content-type' : 'application/json'},
                 body: JSON.stringify({
@@ -98,7 +98,7 @@ const api = {
 
     async signIn(email, password){
         try{
-            const response = await fetch('http://localhost:4001/signin',{
+            const response = await fetch('https://calm-peak-57485.herokuapp.com/signin',{
                 method: 'post',
                 headers: {'Content-type' : 'application/json'},
                 body: JSON.stringify({
