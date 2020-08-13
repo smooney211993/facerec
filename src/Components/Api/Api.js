@@ -82,7 +82,6 @@ const api = {
              })
             if(response.ok) {
                 const user = response.json();
-                console.log(user)
                 return user
                  } else {
                 throw new Error('Error registering')
