@@ -6,7 +6,7 @@ const Rank = (props) =>{
     return (
         <div>
             <div className='white f3 pa2'>
-                {user.name}, your current face count is
+                {user.name} your current face count is
                 
             </div>
             <div className="white f3">

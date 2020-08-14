@@ -9,7 +9,7 @@ const ImageLinkForm = (props)=>{
     }
     return (
         <div className ='image-link'>
-            <p className='f3'>This will detect faces in images!</p>
+            <p className='f3'>This will detect faces in images links!</p>
             <div className='center'>
                 <div className='form center pa4 br3 shadow-5 image-container' >
                     <input className='f4 pa2 w-70 center  ' defaultValue={imageUrl} type='text' onChange ={handleInput}  />
