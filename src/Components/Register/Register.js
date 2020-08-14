@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import api from '../Api/Api';
+import capitalizeName from '../../Helpers/capitalize';
 
 const Register = (props) => {
     const {onRouteChange, loadUser} = props;
@@ -18,7 +19,7 @@ const Register = (props) => {
     };
 
     const onNameChange = (event) => {
-        setName(event.target.value);
+        setName(capitalizeName(event.target.value));
     };
     
     
