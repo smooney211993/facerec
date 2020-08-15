@@ -5,11 +5,11 @@ const Rank = (props) =>{
     const {imageCount, user} = props;
     return (
         <div>
-            <div className='white f3 pa2'>
+            <div className='white f1 pa2'>
                 {user.name} your current face count is
                 
             </div>
-            <div className="white f3">
+            <div className="white f1">
                 {imageCount}
 
             </div>

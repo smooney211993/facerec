@@ -63,7 +63,7 @@ const App2 = () => {
         apiSetFace()
       }  
   
-  }, [imageUrl])
+  }, [imageUrl]);
   
   
   const handleInput = (input) =>{

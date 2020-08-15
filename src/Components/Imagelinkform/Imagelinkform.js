@@ -12,7 +12,7 @@ const ImageLinkForm = (props)=>{
             <p className='f3'>This will detect faces in images links!</p>
             <form className='center' onSubmit={handleImageUrl}>
                 <div className='form center pa4 br3 shadow-5 image-container' >
-                    <input className='f4 pa2 w-70 center  ' defaultValue={imageUrl} type='text' onChange ={handleInput} value={inputValue} />
+                    <input className='f4 pa2 w-70 center  '  type='text' onChange ={handleInput} value={inputValue} />
                     <button  className='w-40 grow f4 link ph3 pv2 dib white bg-light-purple' type='submit' >Detect</button >
                 </div>
             </form>
