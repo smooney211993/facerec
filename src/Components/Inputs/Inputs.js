@@ -5,9 +5,17 @@ const Inputs = (props) => {
         type,
         name,
         id,
-        onChange
+        onChange,
+        isValidEmail
     } = props;
 
+    const renderErrorMessage = ()=>{
+        if(!isValidEmail) {
+            return 'Please use a valid email address'
+        }
+    }
+   
+    
     return (
     <>
         <input
@@ -17,7 +25,7 @@ const Inputs = (props) => {
             id={id}
             onChange={onChange}
         />
-        
+        {renderErrorMessage()}
     </>
     )
 

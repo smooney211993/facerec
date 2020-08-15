@@ -27,7 +27,7 @@ const particleOptions = {
 
 
 const App2 = () => {
-  const [inputBar, setInutBar] = useState('');
+  const [inputBar, setInputBar] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [box, setBox] = useState([]);
   const [route, setRoute] = useState('signin');
@@ -67,7 +67,7 @@ const App2 = () => {
   
   
   const handleInput = (input) =>{
-    setInutBar(input)
+    setInputBar(input)
 
   };
 
@@ -110,7 +110,7 @@ const App2 = () => {
           <Logo/>
           <Rank imageCount ={user.entries} user={user}/>
           <ImageLinkForm onInputChange = {handleInput} inputValue={inputBar}
-          onClick={e=>{
+          handleImageUrl={e=>{
             e.preventDefault()
             setImageUrl(inputBar)}}
           imageUrl ={imageUrl}
@@ -119,7 +119,7 @@ const App2 = () => {
       </div>
     : (
         route === 'signin'
-        ? <Signin  onRouteChange={onRouteChange} loadUser={loadUser} />
+        ? <Signin  onRouteChange={onRouteChange} loadUser={loadUser} isValidEmail={''} />
         : <Register  onRouteChange={onRouteChange} loadUser={loadUser}/>
      )
          

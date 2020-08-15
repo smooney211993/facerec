@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import 'tachyons';
 import Inputs from '../Inputs/Inputs.js'
+import emailValidation from '../../Helpers/validatemails'
 import api from '../Api/Api';
 
 const Signin = (props) => {
     const {onRouteChange, loadUser} = props;
     const [email, setSignEmail] = useState('');
     const [password, setSigninPassword] = useState('');
+    const [isValidEmail, setIsValidEmail] = useState(true);
     const handleSigninEmail = (event) =>{
         setSignEmail(event.target.value);
     };
@@ -15,6 +17,10 @@ const Signin = (props) => {
     };
 
     const onSubmitSignin = async ()  => {
+        const isValidEmail = emailValidation(email);
+        if(!isValidEmail){
+            setIsValidEmail(false)
+        }
         const user = await api.signIn(email,password);
         if(!user){
             return
@@ -38,7 +44,8 @@ const Signin = (props) => {
                                 type={"email"}
                                 name={"email-address"}
                                 id={"email-address"}
-                                onChange={handleSigninEmail}/>
+                                onChange={handleSigninEmail}
+                                isValidEmail ={isValidEmail}/>
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
@@ -46,7 +53,9 @@ const Signin = (props) => {
                                 type={"password"}
                                 name={"password"}
                                 id={"password"}
-                                onChange={handleSigninPassword}/>
+                                onChange={handleSigninPassword}
+                                isValidEmail={true}/>
+                                
                         </div>
                     </fieldset>
                     <div className="">
