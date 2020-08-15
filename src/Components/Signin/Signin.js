@@ -21,6 +21,8 @@ const Signin = (props) => {
         if(!isValidEmail){
             setIsValidEmail(false)
         }
+
+
         const user = await api.signIn(email,password);
         if(!user){
             return
@@ -45,7 +47,8 @@ const Signin = (props) => {
                                 name={"email-address"}
                                 id={"email-address"}
                                 onChange={handleSigninEmail}
-                                isValidEmail ={isValidEmail}/>
+                                isValidEmail ={isValidEmail}
+                                isValidName={true}/>
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
@@ -54,7 +57,8 @@ const Signin = (props) => {
                                 name={"password"}
                                 id={"password"}
                                 onChange={handleSigninPassword}
-                                isValidEmail={true}/>
+                                isValidEmail={true}
+                                isValidName={true}/>
                                 
                         </div>
                     </fieldset>

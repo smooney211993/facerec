@@ -45,7 +45,7 @@ const App2 = () => {
   useEffect(()=>{
     const apiSetFace =  async () =>{
       try{
-        const response = await api.faceDetectApi(inputBar);
+        const response = await api.faceDetectApi(imageUrl);
         if(response){
           setBox(response)
           const boxes = response.length
@@ -119,7 +119,7 @@ const App2 = () => {
       </div>
     : (
         route === 'signin'
-        ? <Signin  onRouteChange={onRouteChange} loadUser={loadUser} isValidEmail={''} />
+        ? <Signin  onRouteChange={onRouteChange} loadUser={loadUser}/>
         : <Register  onRouteChange={onRouteChange} loadUser={loadUser}/>
      )
          

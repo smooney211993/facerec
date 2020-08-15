@@ -6,13 +6,17 @@ const Inputs = (props) => {
         name,
         id,
         onChange,
-        isValidEmail
+        isValidEmail,
+        isValidName
     } = props;
 
     const renderErrorMessage = ()=>{
         if(!isValidEmail) {
             return 'Please use a valid email address'
+        } else if(!isValidName){
+            return 'Please enter your name'
         }
+        
     }
    
     

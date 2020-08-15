@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import api from '../Api/Api';
 import capitalizeName from '../../Helpers/capitalize';
 import validateEmail from '../../Helpers/validatemails';
+import validateName from '../../Helpers/validatename';
 import Inputs from '../Inputs/Inputs';
 
 const Register = (props) => {
@@ -10,6 +11,7 @@ const Register = (props) => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(true);
+    const [isValidName, setIsValidName] = useState(true);
     const [isValid, setIsValid] = useState(null);
     
 
@@ -27,11 +29,20 @@ const Register = (props) => {
     };
     
     const onSubmit = async () =>{
-        const isValidEmail = validateEmail(email);
-        if(!isValidEmail) {
-            setIsValidEmail(false)
-            return
+        const isEmail = validateEmail(email);
+        const isName = validateName(name)
+        if(!isName){
+            setIsValidName(false);
+            
+            
         }
+        
+        if(!isEmail) {
+            setIsValidEmail(false);
+            return
+            
+        }
+        
         const user =  await api.register(name, email, password,);
         if(!user){
             setIsValid(false)
@@ -61,7 +72,8 @@ const Register = (props) => {
                                 name={"name"} 
                                 id={"name"}
                                 onChange={onNameChange}
-                                isValidEmail ={true}/>
+                                isValidEmail ={true}
+                                isValidName={isValidName}/>
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
@@ -70,7 +82,8 @@ const Register = (props) => {
                                 name={"email-address"} 
                                 id={"email-address"}
                                 onChange={onEmailChange}
-                                isValidEmail={isValidEmail}/>
+                                isValidEmail={isValidEmail}
+                                isValidName={true}/>
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
@@ -80,6 +93,7 @@ const Register = (props) => {
                                 id={"password"}
                                 onChange={onPasswordChange}
                                 isValidEmail={true}
+                                isValidName={true}
                             />
                         </div>
                     </fieldset>
