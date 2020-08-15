@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import 'tachyons';
+import Inputs from '../Inputs/Inputs.js'
 import api from '../Api/Api';
 
 const Signin = (props) => {
@@ -33,28 +34,33 @@ const Signin = (props) => {
                         <legend className="f4 fw6 ph0 mh0">Sign In</legend>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                             type="email"
-                             name="email-address"
-                              id="email-address"
-                             onChange={handleSigninEmail}/>
+                            <Inputs 
+                                type={"email"}
+                                name={"email-address"}
+                                id={"email-address"}
+                                onChange={handleSigninEmail}/>
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                             type="password"
-                              name="password"
-                              id="password"
-                              onChange={handleSigninPassword}/>
+                            <Inputs
+                                type={"password"}
+                                name={"password"}
+                                id={"password"}
+                                onChange={handleSigninPassword}/>
                         </div>
                     </fieldset>
                     <div className="">
-                        <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                         type="submit" value="Sign in"
-                          onClick={onSubmitSignin}/>
+                        <input 
+                            className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                            type="submit" value="Sign in"
+                            onClick={onSubmitSignin}/>
                     </div>
                     <div className="lh-copy mt3">
-                        <p onClick={()=>onRouteChange('Register')}className="f6 link dim black db pointer">Register</p>
+                        <input 
+                            onClick={()=>onRouteChange('Register')}
+                            className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"  
+                            type='submit'
+                             value={"Register"}/>
                     </div>
                 </div>
             </main>

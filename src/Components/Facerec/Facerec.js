@@ -4,6 +4,13 @@ import 'tachyons';
 
 const Facerec =(props)=>{
     const {imageUrl, box} = props
+    const renderImage =()=>{
+        if(imageUrl===''){
+            return
+        }
+        return <><img id='imageinput' alt='detecting' src={imageUrl} witdh='400px' height='auto'/>
+        {render()} </>
+    }
     
     
     const render = () =>{
@@ -15,8 +22,7 @@ const Facerec =(props)=>{
     return(
         <div className='center'>
             <div className='absolute mt2'>
-                <img id='imageinput' alt='detecting' src={imageUrl} witdh='400px' height='auto'/>
-                {render()}
+                {renderImage()}
             </div>
         </div>
     )

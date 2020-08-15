@@ -1,5 +1,5 @@
 //import React from 'react';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Navigation from './Components/Navigation/Navigation';
 import Logo from './Components/Logo/Logo';
 import ImageLinkForm from './Components/Imagelinkform/Imagelinkform'
@@ -23,103 +23,12 @@ const particleOptions = {
   }
 }
 
-/*
-  const app = new Clarifai.App({
-    apiKey: 'e0357803b22f409dbb059d51ca2675b1'
-  });
 
-
-
-
-
-
-
-
-
- class App extends React.Component {
-  constructor(props){
-    super(props)
-    this.state ={
-      inputBar: 'https://samples.clarifai.com/face-det.jpg',
-      imageUrl: 'https://samples.clarifai.com/face-det.jpg',
-      box: [],
-      route : 'signin',
-      isSignedIn: true
-    }
-    this.apiSetFace = this.apiSetFace.bind(this)
-    this.handleInput = this.handleInput.bind(this);
-    this.onRouteChange = this.onRouteChange.bind(this);
-  }
-  handleInput(input){
-    this.setState({inputBar: input})
-  }
-  
-  calculateFaceLocation (data){
-    console.log(data)
-  }
-
-  
-
-  async apiSetFace () {
-    this.setState({imageUrl: this.state.inputBar});
-    const boxData = await api.faceDetectApi(this.state.inputBar);
-  
-    this.setState({box: boxData})
-
-
-  }
-  onRouteChange (route){
-    if(route === 'signout'){
-      this.setState({isSignedIn: false})
-
-    } else if (route === 'home') {
-      this.setState({isSignedIn: true})
-    }
-    this.setState({route: route})
-
-  }
-  homePage(){
-    return this.state.route === 'home' 
-    ?  
-      <div>
-          <Logo/>
-          <Rank/>
-          <ImageLinkForm onInputChange = {this.handleInput} 
-          onClick={this.apiSetFace} 
-          imageUrl ={this.state.imageUrl}
-          />
-          <Facerec imageUrl ={this.state.imageUrl} box={this.state.box}/>
-      </div>
-    : (
-        this.state.route === 'signin'
-        ? <Signin  onRouteChange={this.onRouteChange}/>
-        : <Register  onRouteChange={this.onRouteChange}/>
-     )
-         
-         
-       
-    
-  }
-
-
-  render(){
-    return (
-      <div className='App'>
-        <Particles params={particleOptions} className='particles'/>
-        <Navigation onRouteChange = {this.onRouteChange} isSignedIn = {this.state.isSignedIn}/>
-        {this.homePage()}
-        
-      </div>
-    )
-  }
-};
-
-*/
 
 
 const App2 = () => {
-  const [inputBar, setInutBar] = useState('https://samples.clarifai.com/face-det.jpg');
-  const [imageUrl, setImageUrl] = useState('https://samples.clarifai.com/face-det.jpg');
+  const [inputBar, setInutBar] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const [box, setBox] = useState([]);
   const [route, setRoute] = useState('signin');
   const [isSignedin, setSignedIn] = useState(false);
@@ -131,54 +40,39 @@ const App2 = () => {
     joined: '',
   });
   
+
+  
+  useEffect(()=>{
+    const apiSetFace =  async () =>{
+      try{
+        const response = await api.faceDetectApi(inputBar);
+        if(response){
+          setBox(response)
+          const boxes = response.length
+          const data = await api.imageCount(user.id, boxes)
+          setUser({...user,entries: data})
+        } else {
+          throw new Error('bad request')
+        }
+      } catch(error) {
+        console.log('can not detect with poor image quality')
+        }
+    }
+
+      if(imageUrl !== ''){  
+        apiSetFace()
+      }  
+  
+  }, [imageUrl])
+  
   
   const handleInput = (input) =>{
     setInutBar(input)
 
   };
 
-  const apiSetFace =  async () =>{
-    setImageUrl(inputBar);
-    
-      //const boxData = await api.faceDetectApi(inputBar);
-      //setBox(boxData);
-      //const imageCount = await api.imageCount(user.id, box.length);
-      //setUser({...user,entries: imageCount})
-   /* api.faceDetectApi(inputBar).then(response=>{
-      setBox(response) // sets the dimensions of the boxes around the detected faces
-      if(response.length){
-        api.imageCount(user.id, response.length).then(response=> setUser({...user,entries: response}))
+ 
 
-      } else {
-        throw 
-        
-      }
-      
-    })
-    */
-    try{
-      const response = await api.faceDetectApi(inputBar);
-      if(response){
-        setBox(response)
-        const boxes = response.length
-        const data = await api.imageCount(user.id, boxes)
-        setUser({...user,entries: data})
-      } else {
-        throw new Error('bad request')
-      }
-   } catch(error) {
-      console.log('can not detect with poor image quality')
-
-
-   }
-   
-    
-
-  }
-
-  
-  
-  
   const onRouteChange = (routeAdress) =>{
     setRoute(routeAdress)
     if(routeAdress === 'signout'){
@@ -215,8 +109,10 @@ const App2 = () => {
       <div>
           <Logo/>
           <Rank imageCount ={user.entries} user={user}/>
-          <ImageLinkForm onInputChange = {handleInput} 
-          onClick={apiSetFace} 
+          <ImageLinkForm onInputChange = {handleInput} inputValue={inputBar}
+          onClick={e=>{
+            e.preventDefault()
+            setImageUrl(inputBar)}}
           imageUrl ={imageUrl}
           />
           <Facerec imageUrl ={imageUrl} box={box}/>
