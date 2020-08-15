@@ -3,7 +3,7 @@ import './Imagelinkform.css'
 
 
 const ImageLinkForm = (props)=>{
-    const {onInputChange, inputValue, imageUrl, handleImageUrl} = props
+    const {onInputChange, inputValue,  handleImageUrl} = props
     const handleInput =(event)=>{
         onInputChange(event.target.value)
     }

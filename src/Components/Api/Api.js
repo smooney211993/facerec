@@ -107,7 +107,6 @@ const api = {
             })
             if(response.ok) {
                 const user = response.json();
-                console.log(user)
                 return user
                 } else {
                 throw new Error('Error signing in.Please be sure that credentials are correct!')
