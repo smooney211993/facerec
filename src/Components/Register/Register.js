@@ -66,7 +66,7 @@ const Register = (props) => {
                     <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                         <legend className="f4 fw6 ph0 mh0" id="register">{errorMessage()}</legend>
                         <div className="mt3">
-                            <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
+                            <label className="db fw6 lh-copy f6" htmlFor="name">First Name</label>
                             <Inputs
                                 type={"text"} 
                                 name={"name"} 
