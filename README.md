@@ -1,5 +1,12 @@
 This is an application that uses the clarify API to detect faces in image url. The user will be able to create account with sign in and out functionality. It allows the user to paste in an image url which the application will then return boxes around the faces that it has detected. The application will store the accumlation of faces detected.
 
+Problems and improvements to be made:
+There is alot of repeating code such as sign in and register component is essential the same.
+Too much state that is to be managed? maybe use redux? or learn the useReducer?
+input forms are missing name and values?
+The backend needs some route protection? json webtoken could be used?
+backend needs more specific endpoints for each http request to the database?
+Better Error handling if api request fails? 
 
 ## Available Scripts
 
